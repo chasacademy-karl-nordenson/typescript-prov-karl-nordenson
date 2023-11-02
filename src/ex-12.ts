@@ -2,6 +2,10 @@
 
 function getPrice(price: number | {price : number}) {  
     // Här...
+    if(typeof price === "object" ){
+        return price.price
+    } return price
+
  }    
 
 

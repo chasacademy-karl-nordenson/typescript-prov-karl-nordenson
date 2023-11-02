@@ -15,4 +15,44 @@ const heightInM = pokemon.height / 10;
 const bmi = weightInKg / (heightInM * heightInM);
 */
 
+import { z } from "zod";
 
+const PokemonSchema = z.object({
+  name: z.string(),
+  height: z.number(),
+  weight: z.number()  
+});
+
+type Pokemon = z.infer<typeof PokemonSchema>;
+
+const makeFetch = async (): Promise<Pokemon> => {
+  const response = await fetch("https://pokeapi.co/api/v2/pokemon/ditto");
+  const responseData = await response.json();
+  return responseData;
+};
+
+const validateCharacter = (pokemon: Pokemon) => {
+
+  return PokemonSchema.safeParse(pokemon);
+};
+
+const fetchDataValidateAndCalculateBmi = async () => {
+  const pokemon = await makeFetch();
+  const validCharacter = validateCharacter(pokemon);
+
+  if (validCharacter.success) {
+    console.log("Valid Character:", validCharacter.data);
+  } else {
+    console.log("Validation Error:", validCharacter.error);
+  }
+
+const weightInKg = pokemon.weight / 10;
+const heightInM = pokemon.height / 10;
+const bmi = weightInKg / (heightInM * heightInM);
+console.log(bmi);
+
+};
+
+
+
+fetchDataValidateAndCalculateBmi();

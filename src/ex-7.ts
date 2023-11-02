@@ -2,12 +2,14 @@
 
 type Dictionary = {
     // Index signature ska vara här
+    [index: string]: string 
  
   };
   
   
   function addWord(dictionary: Dictionary, word: string, definition: string): void {
     // Implementera funktionen så att den lägger till ordet och definitionen i ordboken (dictionary).
+    dictionary
     
   }
   
